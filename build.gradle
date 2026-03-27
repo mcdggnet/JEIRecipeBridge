@@ -16,9 +16,19 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
 
+repositories {
+    maven { url = "https://repo.nexomc.com/releases" }
+    maven { url = "https://mvn.lumine.io/repository/maven-public/" }
+    maven { url = "https://nexus.phoenixdevt.fr/repository/maven-public/" }
+}
+
 dependencies {
     compileOnly "io.papermc.paper:paper-api:${paper_version}"
     paperweight.paperDevBundle("${paperweight_version}")
+    // Soft-dependency plugin integrations
+    compileOnly "com.nexomc:nexo:1.21.0"
+    compileOnly "io.lumine:Mythic-Dist:5.6.1"
+    compileOnly "net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT"
 }
 
 tasks {

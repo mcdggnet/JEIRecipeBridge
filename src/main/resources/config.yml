@@ -1,0 +1,2 @@
+# Recipes to hide from JEI on clients (resource location format, e.g. minecraft:crafting_table)
+blacklisted_recipes: []

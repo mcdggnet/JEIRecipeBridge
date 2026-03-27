@@ -18,3 +18,5 @@ plugins {
 }
 
 rootProject.name = 'jei-recipe-bridge'
+
+include('velocity')

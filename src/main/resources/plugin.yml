@@ -5,3 +5,13 @@ api-version: 1.21.11
 author: "Mrbysco"
 description: "Synchronizes server recipes to the client, enabling JEI support."
 website: "https://www.curseforge.com/minecraft/bukkit-plugins/jei-recipe-bridge"
+
+softdepend: [Nexo, MythicMobs, MMOItems, vane-core]
+
+permissions:
+  jeirecipebridge.reload:
+    description: Allows reloading the JEI Recipe Bridge config
+    default: op
+  jeirecipebridge.resend:
+    description: Allows resending recipes to a specific player
+    default: op
