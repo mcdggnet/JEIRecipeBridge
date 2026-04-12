@@ -67,21 +67,30 @@ public final class JEIRecipeBridgePlugin extends JavaPlugin {
 
 		// Soft-dependency hooks — only register if the plugin is present
 		if (pm.isPluginEnabled("Nexo")) {
-			pm.registerEvents(new NexoHook(), this);
-			LOGGER.info("Nexo integration enabled.");
+			tryRegisterHook(pm, new NexoHook(), "Nexo", "com.nexomc.nexo.api.events.NexoItemsLoadedEvent");
 		}
 		if (pm.isPluginEnabled("MythicMobs")) {
-			pm.registerEvents(new MythicMobsHook(), this);
-			LOGGER.info("MythicMobs integration enabled.");
+			tryRegisterHook(pm, new MythicMobsHook(), "MythicMobs", "io.lumine.mythic.bukkit.events.MythicReloadedEvent");
 		}
 		if (pm.isPluginEnabled("vane-core")) {
-			pm.registerEvents(new VaneHook(), this);
-			LOGGER.info("Vane integration enabled.");
+			tryRegisterHook(pm, new VaneHook(), "Vane", null);
 		}
 		if (pm.isPluginEnabled("MMOItems")) {
-			pm.registerEvents(new MMOItemsHook(), this);
-			LOGGER.info("MMOItems integration enabled.");
+			tryRegisterHook(pm, new MMOItemsHook(), "MMOItems", "net.Indyuce.mmoitems.api.event.MMOItemsReloadEvent");
 		}
+	}
+
+	private void tryRegisterHook(PluginManager pm, org.bukkit.event.Listener hook, String name, String requiredClass) {
+		if (requiredClass != null) {
+			try {
+				Class.forName(requiredClass);
+			} catch (ClassNotFoundException e) {
+				LOGGER.warn("{} plugin found but hook skipped — event class not available (version mismatch).", name);
+				return;
+			}
+		}
+		pm.registerEvents(hook, this);
+		LOGGER.info("{} integration enabled.", name);
 	}
 
 	@Override
